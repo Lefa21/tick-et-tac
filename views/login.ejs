@@ -20,11 +20,11 @@
         <div class="row">
 
           <!-- SIGN IN AREA -->
-          <div class="col-12 col-sm-6 text-center">
+          <div class=" offset-lg-4 col-lg-2 d-flex text-center sign-top">
 
             <div class="formArea">
 
-              <h4 class="titleForm text-white">Sign-in :</h4>
+              <h4 class="titleForm text-white sign-bottom">Sign-in :</h4>
 
               <form action="/users/sign-in" method="POST">
                 <div class="form-group">
@@ -43,15 +43,18 @@
 
           <!-- SIGN UP AREA -->
 
-          <div class="col-12 col-sm-6 text-center">
+          <div class="col-lg-2 d-flex text-center sign-top">
 
             <div class="formArea">
-              <h4 class="titleForm text-white">Sign-up :</h4>
+              <h4 class="titleForm text-white sign-bottom">Sign-up :</h4>
 
               <form action ="/users/sign-up" method="post">
                 <div class="form-group">
-                  <input name = "username" type="text" class="form-control" placeholder="username" >
+                  <input name = "name" type="text" class="form-control" placeholder="name" >
                 </div>
+                <div class="form-group">
+                    <input name = "FirstName" type="text" class="form-control" placeholder="FirstName" >
+                  </div>
                 <div class="form-group">
                   <input name = "email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="email">
                 </div>

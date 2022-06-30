@@ -23,7 +23,9 @@ router.post('/sign-up', async function(req, res, next) {
   if (!existentUser) {
     
     var newuser = new userModel ({
-      username: req.body.username,
+      
+      name: req.body.name,
+      FirstName: req.body.FirstName,
       email: req.body.email ,
       password: req.body.password,
      });
@@ -31,7 +33,8 @@ router.post('/sign-up', async function(req, res, next) {
      // We save our new user in our MongoDB
     var newUserSaved = await newuser.save();
 
-    req.session.username = {name: newUserSaved.username, id: newUserSaved._id};
+    req.session.name = {name: newUserSaved.name, id: newUserSaved._id};
+    req.session.FirstName = {name: newUserSaved.FirstName, id: newUserSaved._id};
 
      res.redirect('/users/index');
    
@@ -48,7 +51,7 @@ router.post('/sign-up', async function(req, res, next) {
    
      if(existentUser) {
 
-     req.session.user = { name: existentUser.username, id: existentUser._id };
+     req.session.user = { name: existentUser.name, id: existentUser._id };
   
       console.log("EXISTENT USER :", existentUser);
       res.redirect('/users/index');
