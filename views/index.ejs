@@ -10,8 +10,31 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   </head>
   <body>
+    <%- include('header') %> 
     
-    
+    <div class="container" id="containerH1">
+      <div class="row">
+        <h3 class="col-4 offset-3">One-way ticket :</h3>
+        </div>
+
+      <div class="row">
+        <div class="col-8 offset-2">
+          <form action="/search" method="POST">
+            <div class="input-group mb-3">
+              <input name="from" type="text" class="form-control" placeholder="From: Paris, Marseille ..."
+                aria-label="new city name" >
+              <div style="margin-left: 15px;"></div>
+                <input name="To" type="text" class="form-control" placeholder="To: Lyon, Metz..."
+                aria-label="new city name">
+                <div style="margin-left: 15px;"></div>
+                <input name="data-toggle" type="date" class="form-control">
+              <div class="input-group-append" style="margin-left: 15px;">
+                <button class="btn btn-danger" type="submit" id="button-addon2">GO</button>
+              </div>
+            </div>
+          </form>
+          
+        </div>
         
       </div>
     </nav>
