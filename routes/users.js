@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/index', function(req, res, next) {
-  res.send('index');
+  res.render('index');
 });
 
 
