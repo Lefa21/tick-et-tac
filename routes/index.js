@@ -74,4 +74,14 @@ router.get('/result', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+
+router.post('/search', async function(req, res, next){
+var journeys = await journeyModel.find()
+console.log(journeys)
+  
+
+  res.render('index', {})
+})
+
+
 module.exports = router;
