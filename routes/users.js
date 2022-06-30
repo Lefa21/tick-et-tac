@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/index', function(req, res, next) {
-  res.send('index');
+  res.render('index', { title: 'home' });
 });
 
 
@@ -54,7 +54,7 @@ router.post('/sign-up', async function(req, res, next) {
      req.session.user = { name: existentUser.name, id: existentUser._id };
   
       console.log("EXISTENT USER :", existentUser);
-      res.redirect('/users/index');
+      res.redirect('/');
      
     } else {
       console.log("NOT EXISTENT USER :"+ existentUser);
