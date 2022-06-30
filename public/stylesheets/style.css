@@ -17,6 +17,7 @@ a {
 .navbar {
   padding-bottom: 20px;
   padding-top: 20px;
+  margin-bottom: 3%;
 }
 
 h3 {
@@ -34,3 +35,19 @@ h3 {
 
 
 
+.departure {
+  color: rgb(136, 135, 135, 0.8);
+}
+
+.price {
+  font-size: large;
+}
+
+.from_to {
+  font-size: large;
+}
+
+#walk {
+  height: 10%;
+  width: auto;
+}

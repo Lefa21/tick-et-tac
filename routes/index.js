@@ -11,7 +11,7 @@ var router = express.Router();
 
 
 var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
-var date = ["2018-11-20","2018-11-21","2018-11-22","2018-11-23","2018-11-24"]
+var date = ["2022-07-01","2022-07-02","2022-07-03","2022-07-05","2022-07-04"]
 
 
 
@@ -80,11 +80,16 @@ router.get('/result', function(req, res, next) {
 
 
 router.post('/search', async function(req, res, next){
-var journeys = await journeyModel.find()
-console.log(journeys)
-  
 
-  res.render('index', {})
+  var from = req.body.from
+  var to = req.body.To
+  var dateJ = req.body.date
+
+  var journeys = await journeyModel.find({ $and: [ {departure : from}, {arrival: to}, {date : dateJ}]})
+  console.log(journeys)
+  if (journeys.length >= 1) {res.render('results', {title: "results", journeys, dateJ, from, to})
+    
+  } else {res.render('noresults', {title: "noresults", journeys, dateJ, from, to})}
 })
 
 
