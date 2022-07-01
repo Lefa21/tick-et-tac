@@ -72,7 +72,7 @@ router.post('/update-shop', function(req, res, next) {
 router.post('/create-checkout-session', async (req, res) => {
   let stripe_card_items =[]
   let session;
- 
+ console.log(req.session.dataCard[0])
 
  for (let i = 0 ; i < req.session.dataCard.length ; i++) {
   let article ={
@@ -181,5 +181,8 @@ router.post('/search', async function(req, res, next){
   } else {res.render('noresults', {title: "noresults", journeys, dateJ, from, to})}
 })
 
+router.get('/result', function(req, res, next) {
 
+  res.render('game')
+})
 module.exports = router;
