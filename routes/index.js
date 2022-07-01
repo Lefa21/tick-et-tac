@@ -115,8 +115,6 @@ router.post('/search', async function(req, res, next){
   } else {res.render('noresults', {title: "noresults", journeys, dateJ, from, to})}
 })
 
-router.get('/trips', (req, res) => {
-  res.render('lastrips')
-});
+
 
 module.exports = router;

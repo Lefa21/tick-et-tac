@@ -45,11 +45,11 @@ router.post('/sign-up', async function(req, res, next) {
   router.post('/sign-in', async function(req, res, next) {
 var exist = true
     var existentUser = await userModel.findOne({ email:req.body.email, password:req.body.password });
-    
+    console.log(existentUser);
    
      if(existentUser) {
 
-     req.session.user = { name: existentUser.name, id: existentUser._id };
+     req.session.user = { name: existentUser.name, id: existentUser._id};
   
       console.log("EXISTENT USER :", existentUser);
       res.redirect('/');
@@ -68,5 +68,46 @@ var exist = true
 
       req.session.user = null
      });
+
+
+     router.get('/trips', async function (req, res, next) {
+      
+      var newUser = new userModel({
+      trips: [{date : new Date() ,  departure: "Paris/Lille", departureTime: "15:00 pm", price: 93,}],
+      name: "John" ,
+      FirstName: "Doe" ,
+      email: "john.doegmail.com",
+      password: "bg",
+    });
+    var userSaved = await newUser.save();
+
+    var newUser2 = new userModel({
+      trips: [{date : new Date() ,  departure: "Paris/Marseille", departureTime: "14:00 pm", price: 95,}],
+      name: "John" ,
+      FirstName: "Doe" ,
+      email: "john.doe@gmail.com",
+      password: "bg",
+    });
+    var userSaved = await newUser2.save();
+
+   var user = await userModel.findById(req.session.user.id);
+   
+   console.log(user);
+
+    var date = [];
+
+    for (var i = 0; i < date.length; i++) {
+      if (date.date < Date.now()) {
+        date.push(user.trips[i])
+      }
+    }
+
+      console.log(date)
+
+
+    
+      res.render('lastrips', { title: 'My last trips', date: date });
+    });
+    
 
 module.exports = router
