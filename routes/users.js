@@ -34,7 +34,7 @@ router.post('/sign-up', async function(req, res, next) {
     req.session.name = {name: newUserSaved.name, id: newUserSaved._id};
     req.session.FirstName = {name: newUserSaved.FirstName, id: newUserSaved._id};
 
-     res.redirect('/users/index');
+     res.redirect('/index');
    
     }else {
       res.redirect('/users/login');
@@ -71,24 +71,6 @@ var exist = true
 
 
      router.get('/trips', async function (req, res, next) {
-      
-      var newUser = new userModel({
-      trips: [{date : new Date() ,  departure: "Paris/Lille", departureTime: "15:00 pm", price: 93,}],
-      name: "John" ,
-      FirstName: "Doe" ,
-      email: "john.doegmail.com",
-      password: "bg",
-    });
-    var userSaved = await newUser.save();
-
-    var newUser2 = new userModel({
-      trips: [{date : new Date() ,  departure: "Paris/Marseille", departureTime: "14:00 pm", price: 95,}],
-      name: "John" ,
-      FirstName: "Doe" ,
-      email: "john.doe@gmail.com",
-      password: "bg",
-    });
-    var userSaved = await newUser2.save();
 
    var user = await userModel.findById(req.session.user.id);
    
@@ -97,15 +79,13 @@ var exist = true
     var date = [];
 
     for (var i = 0; i < date.length; i++) {
-      if (date.date < Date.now()) {
+      if ().date < Date.now()) {
         date.push(user.trips[i])
       }
     }
 
       console.log(date)
 
-
-    
       res.render('lastrips', { title: 'My last trips', date: date });
     });
     

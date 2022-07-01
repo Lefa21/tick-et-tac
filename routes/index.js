@@ -73,9 +73,9 @@ router.post('/create-checkout-session', async (req, res) => {
   let stripe_card_items =[]
   let session;
   req.session.trips.push({
-    departure: req.session.dataCard[i].journey
-    departureTime : req.session.dataCard[i].departure
-    price: req.session.dataCard[i].price
+    departure: req.session.dataCard[i].journey,
+    departureTime : req.session.dataCard[i].departure,
+    price: req.session.dataCard[i].price,
     date: req.session.dataCard[i].date
 })
 
@@ -92,7 +92,7 @@ router.post('/create-checkout-session', async (req, res) => {
    }
   stripe_card_items.push(article)
   req.session.trips.push(
-    departure: req.session.dataCard[i].journey
+    {departure: req.session.dataCard[i].journey}
   )
  }
 
