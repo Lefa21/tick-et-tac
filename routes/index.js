@@ -12,7 +12,7 @@ var router = express.Router();
 
 
 var city = ["Paris","Marseille","Nantes","Lyon","Rennes","Melun","Bordeaux","Lille"]
-var date = ["2022-07-01","2022-07-02","2022-07-03","2022-07-05","2022-07-04"]
+var date = ["2022-07-01","2022-07-02","2022-07-03","2022-07-05","2022-07-04","2022-06-22","2022-06-25","2022-06-27","2022-06-30"]
 
 
 
@@ -72,12 +72,7 @@ router.post('/update-shop', function(req, res, next) {
 router.post('/create-checkout-session', async (req, res) => {
   let stripe_card_items =[]
   let session;
-  req.session.trips.push({
-    departure: req.session.dataCard[i].journey
-    departureTime : req.session.dataCard[i].departure
-    price: req.session.dataCard[i].price
-    date: req.session.dataCard[i].date
-})
+ 
 
  for (let i = 0 ; i < req.session.dataCard.length ; i++) {
   let article ={
@@ -91,11 +86,15 @@ router.post('/create-checkout-session', async (req, res) => {
     quantity : req.session.dataCard[i].quantité,
    }
   stripe_card_items.push(article)
-  req.session.trips.push(
-    departure: req.session.dataCard[i].journey
-  )
+  req.session.user.trips.push({
+      departure: req.session.dataCard[i].journey,
+      departureTime : req.session.dataCard[i].departure,
+      price: req.session.dataCard[i].price,
+      date: req.session.dataCard[i].date,
+  
+ })
  }
-
+console.log(req.session.user)
  var total = 0
  for (let j=0 ; j<stripe_card_items.length ; j++) {
   total += stripe_card_items[j].price_data.unit_amount*stripe_card_items[j].quantity
@@ -107,8 +106,8 @@ router.post('/create-checkout-session', async (req, res) => {
    
    line_items : stripe_card_items,
    mode : 'payment',
-   success_url: 'http://localhost:3000/success',
-   cancel_url: 'http://localhost:3000/cancel',
+   success_url: 'http://localhost:3000/myTrips',
+   cancel_url: 'http://localhost:3000/',
  }) 
  res.redirect(303, session.url);
 });

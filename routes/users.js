@@ -34,7 +34,7 @@ router.post('/sign-up', async function(req, res, next) {
     req.session.name = {name: newUserSaved.name, id: newUserSaved._id};
     req.session.FirstName = {name: newUserSaved.FirstName, id: newUserSaved._id};
 
-     res.redirect('/users/index');
+     res.redirect('/index');
    
     }else {
       res.redirect('/users/login');
@@ -49,7 +49,7 @@ var exist = true
    
      if(existentUser) {
 
-     req.session.user = { name: existentUser.name, id: existentUser._id};
+     req.session.user = existentUser;
   
       console.log("EXISTENT USER :", existentUser);
       res.redirect('/');
@@ -71,38 +71,14 @@ var exist = true
 
 
      router.get('/trips', async function (req, res, next) {
-      
-      var newUser = new userModel({
-      trips: [{date : new Date() ,  departure: "Paris/Lille", departureTime: "15:00 pm", price: 93,}],
-      name: "John" ,
-      FirstName: "Doe" ,
-      email: "john.doegmail.com",
-      password: "bg",
-    });
-    var userSaved = await newUser.save();
-
-    var newUser2 = new userModel({
-      trips: [{date : new Date() ,  departure: "Paris/Marseille", departureTime: "14:00 pm", price: 95,}],
-      name: "John" ,
-      FirstName: "Doe" ,
-      email: "john.doe@gmail.com",
-      password: "bg",
-    });
-    var userSaved = await newUser2.save();
-
-   var user = await userModel.findById(req.session.user.id);
-   
-   console.log(user);
-
     var date = [];
-
+console.log(req.session.user)
     for (var i = 0; i < date.length; i++) {
-      if (date.date < Date.now()) {
-        date.push(user.trips[i])
+      if (req.session.user.trips[i].date < Date.now()) {
+        date.push(req.session.user.trips[i])
       }
     }
 
-      console.log(date)
 
 
     
