@@ -72,11 +72,12 @@ var exist = true
 
      router.get('/trips', async function (req, res, next) {
     var date = [];
-
-    console.log(req.session.user)
-
-    for (var i = 0; i < req.session.user.length; i++) {
-      if (req.session.user.trips[i].date < new Date()) {
+console.log(req.session.user.trips)
+var auj = new Date()
+console.log(auj)
+    for (var i = 0; i < req.session.user.trips.length; i++) {
+      if (new Date (req.session.user.trips[i].date) < auj) {
+        console.log("test")
         date.push(req.session.user.trips[i])
       }
     }
