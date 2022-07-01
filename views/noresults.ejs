@@ -2,17 +2,38 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style2.css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/style2.css">
   </head>
   <body>
     <%- include('header') %> 
+    
+    <div id="navbarno" aria-hidden="true">
+      <a href="/" id="logo">New Search</a>
+      <div id="navbarno-right">
+        <form action="/search" method="POST">
+          <div class="input-group mb-3">
+            <input name="from" type="text" class="form-control" placeholder="From: Paris, Marseille ..."
+              aria-label="new city name" >
+            <div style="margin-left: 15px;"></div>
+              <input name="To" type="text" class="form-control" placeholder="To: Lyon, Metz..."
+              aria-label="new city name">
+              <div style="margin-left: 15px;"></div>
+              <input name="date" type="date" class="form-control">
+            <div class="input-group-append" style="margin-left: 15px;">
+              <button class="btn btn-danger" type="submit" id="button-addon2">GO</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> 
 
-    <div class="container" id="containerH1">
+
+    <div class="container" id="containerH1" style="margin-top: 3%;">
         <div class="row">
           <h3 class="col-6 offset-2">No tickets available on <%=dateJ%></h3>
           <h3>You'd better start walking</h3>
@@ -31,5 +52,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
  crossorigin="anonymous"></script>
+ <script src="/javascripts/navbar.js"></script>
 </body>
 </html>

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 var journeyModel = require('../models/journey.js');
-
+const Stripe = require('stripe');
+const stripe = Stripe('sk_test_51LBaXhITvZ1Ii0ZYP39WvMvRCGvgLx7lNkABtpFdkLWAvP4RtGkHmFcWnbtUKyepANj15pOOBhPKJtlUpYtXYaxW00qY0mj79P');
 
 var express = require('express');
 var router = express.Router();
@@ -17,12 +18,20 @@ var date = ["2022-07-01","2022-07-02","2022-07-03","2022-07-05","2022-07-04"]
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  
+  if (req.session.user == undefined) {
+    res.redirect('/users/login')
+  }
+  if (req.session.dataCard == undefined) {
+    req.session.dataCard = []
+  }
   res.render('index', { title: 'Express' });
 });
 
 router.get('/myChart', function(req, res, next) {
-console.log(req.query)
+  if (req.session.user == undefined) {
+    res.redirect('/users/login')
+  }
+
 var alreadyExist = false ;
 if (req.session.dataCard == undefined) {
   req.session.dataCard = []
@@ -40,13 +49,69 @@ if (req.session.dataCard == undefined) {
     travel.date = req.query.date
     travel.price = req.query.price
     travel.quantité = 1
-    console.log(travel)
+
       req.session.dataCard.push(travel)
      } 
   
   res.render('myChart', { title: 'My Tickets' , dataCard: req.session.dataCard});
 });
 
+router.get('/delete-shop', function(req, res, next) {
+  req.session.dataCard.splice(req.query.position,1)
+  res.render('myChart', {title: "updated card", dataCard : req.session.dataCard});
+});
+
+router.post('/update-shop', function(req, res, next) {
+  console.log(req.session.dataCard[0])
+  console.log(req.body)
+  req.session.dataCard[Number(req.body.button)].quantité= req.body.quantity
+  
+  res.render('myChart', {title: "updated card", dataCard : req.session.dataCard});
+});
+
+router.post('/create-checkout-session', async (req, res) => {
+  let stripe_card_items =[]
+  let session;
+  req.session.trips.push({
+    departure: req.session.dataCard[i].journey
+    departureTime : req.session.dataCard[i].departure
+    price: req.session.dataCard[i].price
+    date: req.session.dataCard[i].date
+})
+
+ for (let i = 0 ; i < req.session.dataCard.length ; i++) {
+  let article ={
+    price_data : {
+        currency : 'eur',
+        product_data: { 
+            name :  req.session.dataCard[i].journey,
+        },
+        unit_amount : req.session.dataCard[i].price*100,
+        },
+    quantity : req.session.dataCard[i].quantité,
+   }
+  stripe_card_items.push(article)
+  req.session.trips.push(
+    departure: req.session.dataCard[i].journey
+  )
+ }
+
+ var total = 0
+ for (let j=0 ; j<stripe_card_items.length ; j++) {
+  total += stripe_card_items[j].price_data.unit_amount*stripe_card_items[j].quantity
+ }
+  session = await stripe.checkout.sessions.create({
+
+   payment_method_types: ['card'],
+   
+   
+   line_items : stripe_card_items,
+   mode : 'payment',
+   success_url: 'http://localhost:3000/success',
+   cancel_url: 'http://localhost:3000/cancel',
+ }) 
+ res.redirect(303, session.url);
+});
 
 // Remplissage de la base de donnée, une fois suffit
 router.get('/save', async function(req, res, next) {
@@ -103,7 +168,9 @@ router.get('/result', function(req, res, next) {
 
 
 router.post('/search', async function(req, res, next){
-
+//if (req.session.user == undefined) {
+  //  res.redirect('/users/login')
+  //}
   var from = req.body.from
   var to = req.body.To
   var dateJ = req.body.date
@@ -115,8 +182,5 @@ router.post('/search', async function(req, res, next){
   } else {res.render('noresults', {title: "noresults", journeys, dateJ, from, to})}
 })
 
-router.get('/trips', (req, res) => {
-  res.render('lastrips')
-});
 
 module.exports = router;
