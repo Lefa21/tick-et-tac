@@ -24,7 +24,15 @@ h3 {
   color: whitesmoke;
 }
 
-
+#tableau {
+  margin-bottom: 3%;
+  opacity: 90%;
+}
+#checkout {
+  color: whitesmoke;
+  background-color: #fed330;
+  border-color: #fed330;
+}
 .sign-top{
   margin-top: 100px;
 }
@@ -33,7 +41,9 @@ h3 {
   margin-bottom: 20px;
 }
 
-
+.nav-link {
+  font-size: medium;
+}
 
 .departure {
   color: rgb(136, 135, 135, 0.8);
@@ -57,6 +67,9 @@ h3 {
   width: auto;
 }
 
+<<<<<<< HEAD
 .trip {
   margin-bottom: 20px;
 }
+=======
+>>>>>>> 002ceaaa75b9046f9ac6d261370c1f63ecc8406b

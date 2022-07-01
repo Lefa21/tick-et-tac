@@ -14,8 +14,8 @@
     <div class="container" id="containerH1">
         <div class="row">
          
-          <div class="card col-12 cardResults">
-            <table class="table" id="tableau">
+          <div class="card col-12" id="tableau">
+            <table class="table" >
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -51,7 +51,7 @@ if (dataCard[i].quantité > 0) {%>
                         
                         <td><%= dataCard[i].price %>€</td>
                         <td class="total"> <%= (dataCard[i].price)*dataCard[i].quantité %> €</td>
-                        <td><a href="delete-shop?position=<%=i+1%>" action="/delete-shop"> <button class="btn btn-outline-info btn-sm" name="button"><i class="far fa-trash-alt"></i></button></a></form></td>
+                        <td><a href="delete-shop?position=<%=i%>" action="/delete-shop"> <button class="btn btn-outline-info btn-sm" name="button"><i class="far fa-trash-alt "></i></button></a></form></td>
                     </tr> <% } }%>
                 
                   <tr>
@@ -60,15 +60,26 @@ if (dataCard[i].quantité > 0) {%>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    
                     <td class="total-box">Total Basket : </td>
                     <td><%let somme = 0
                      for (let j=0 ; j<dataCard.length ; j++) {
                         somme = somme + dataCard[j].price*dataCard[j].quantité 
                     } %><%= somme%>€</td>
              <% } %>
+                    <td>
+                    </form>
+                    </td>
             </ul>
+            </table>
           </div>
+          
+    </div>
+    
+    <div class="row col-3 offset-10">
+        <form action="/create-checkout-session" method="POST">
+        <button class="btn btn-lg btn-warning" name="button-checkout" type="submit" aria-pressed="true" id="checkout">Checkout</button>
+    </div>
     </div>
 
 
