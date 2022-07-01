@@ -14,7 +14,9 @@ router.get('/index', function(req, res, next) {
 
 
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  req.session.dataCard = []
+  var exist = true
+  res.render('login', {exist});
 });
 
 router.post('/sign-up', async function(req, res, next) {
@@ -45,7 +47,7 @@ router.post('/sign-up', async function(req, res, next) {
 });
 
   router.post('/sign-in', async function(req, res, next) {
-
+var exist = true
     var existentUser = await userModel.findOne({ email:req.body.email, password:req.body.password });
     
    
@@ -58,13 +60,11 @@ router.post('/sign-up', async function(req, res, next) {
      
     } else {
       console.log("NOT EXISTENT USER :"+ existentUser);
-      
-      res.render('login');
+      exist = false
+      res.render('login', {exist});
     }
 
     });
 
-    router
 
-
-module.exports = router;
+module.exports = router

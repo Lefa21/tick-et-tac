@@ -17,11 +17,34 @@ var date = ["2022-07-01","2022-07-02","2022-07-03","2022-07-05","2022-07-04"]
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  
   res.render('index', { title: 'Express' });
 });
 
-router.get('/', function(req, res, next) {
-  res.render('login');
+router.get('/myChart', function(req, res, next) {
+console.log(req.query)
+var alreadyExist = false ;
+if (req.session.dataCard == undefined) {
+  req.session.dataCard = []
+}
+  for ( let i = 0 ; i<req.session.dataCard.length ; i++) {
+    if (req.session.dataCard[i].journey == req.query.from+"/"+req.query.to) {
+      req.session.dataCard[i].quantité = Number(req.session.dataCard[i].quantité) + 1
+    
+      alreadyExist = true;
+    } }
+  if(alreadyExist == false){
+    var travel = {}
+    travel.journey = req.query.from+"/"+req.query.to
+    travel.departure = req.query.departure
+    travel.date = req.query.date
+    travel.price = req.query.price
+    travel.quantité = 1
+    console.log(travel)
+      req.session.dataCard.push(travel)
+     } 
+  
+  res.render('myChart', { title: 'My Tickets' , dataCard: req.session.dataCard});
 });
 
 
