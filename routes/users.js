@@ -8,10 +8,6 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/index', function(req, res, next) {
-  res.render('index');
-});
-
 
 router.get('/login', function(req, res, next) {
   res.render('login');
@@ -54,7 +50,7 @@ router.post('/sign-up', async function(req, res, next) {
      req.session.user = { name: existentUser.name, id: existentUser._id };
   
       console.log("EXISTENT USER :", existentUser);
-      res.redirect('/users/index');
+      res.redirect('/');
      
     } else {
       console.log("NOT EXISTENT USER :"+ existentUser);
@@ -64,7 +60,12 @@ router.post('/sign-up', async function(req, res, next) {
 
     });
 
-    router
+    router.get('/logout', function(req, res) {
+
+      res.redirect('/users/login');
+
+      req.session.user = null
+     });
 
 
 module.exports = router;
