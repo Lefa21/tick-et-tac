@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <%- include('header') %> 
+    <div class="container" id="containerH1">
+        <div class="row">
+         
+          <div class="card col-12 cardResults">
+            <table class="table" id="tableau">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Journey</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Departure Time</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Suppr</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 
+<% if ( dataCard.length > 0) {
+ for (let i=0; i<dataCard.length ; i++) { 
+if (dataCard[i].quantité > 0) {%>
+                    <tr class="basket-item">
+                        <th scope="row"><%= i+1%></th>
+                        <td><%= dataCard[i].journey %></td>
+                        <td>
+                            <%= dataCard[i].date %>
+                        </td>
+                        <td>
+                        <%= dataCard[i].departure %>
+                        </td>
+                        <td>
+                            <form method="post" action="/update-shop">
+                                <input type="number" name="quantity" value="<%= dataCard[i].quantité%>">
+                                <button class="btn btn-outline-info btn-sm" name="button" value="<%=i%>"><i class="fas fa-sync-alt"></i></button>
+                            </form>
+                        </td>
+                        
+                        <td><%= dataCard[i].price %>€</td>
+                        <td class="total"> <%= (dataCard[i].price)*dataCard[i].quantité %> €</td>
+                        <td><a href="delete-shop?position=<%=i+1%>" action="/delete-shop"> <button class="btn btn-outline-info btn-sm" name="button"><i class="far fa-trash-alt"></i></button></a></form></td>
+                    </tr> <% } }%>
+                
+                  <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="total-box">Total Basket : </td>
+                    <td><%let somme = 0
+                     for (let j=0 ; j<dataCard.length ; j++) {
+                        somme = somme + dataCard[j].price*dataCard[j].quantité 
+                    } %><%= somme%>€</td>
+             <% } %>
+            </ul>
+          </div>
+    </div>
+
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+crossorigin="anonymous"></script>
+</body>
+</html>

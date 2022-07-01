@@ -22,7 +22,7 @@
               <li class="list-group-item">
                 <span class="col-1 from_to"><%= from %>/<%= to %></span>
                 <span class="col-3 offset-2 departure">train departure at : <%= journeys[i].departureTime %></span>
-                <span class="col-3 offset-2 price"><%= journeys[i].price %>€ <button class="btn btn-danger" id="button-purchase">OK</button></span>
+                <span class="col-3 offset-2 price"><%= journeys[i].price %>€ <a href="myChart?id=<%=[i]%>&from=<%= from %>&to=<%= to %>&date=<%=dateJ%>&price=<%= journeys[i].price %>&departure=<%= journeys[i].departureTime %>"> <button class="btn btn-danger" id="button-purchase">OK</button></a></span>
              </li>
              <% } %>
             </ul>
