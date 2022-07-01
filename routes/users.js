@@ -72,13 +72,15 @@ var exist = true
 
      router.get('/trips', async function (req, res, next) {
     var date = [];
-console.log(req.session.user)
 
-    for (var i = 0; i < date.length; i++) {
-      if (req.session.user.trips[i].date < Date.now()) {
+    console.log(req.session.user)
+
+    for (var i = 0; i < req.session.user.length; i++) {
+      if (req.session.user.trips[i].date < new Date()) {
         date.push(req.session.user.trips[i])
       }
     }
+    console.log(date);
 
 
       res.render('lastrips', { title: 'My last trips', date: date });
