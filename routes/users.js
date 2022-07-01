@@ -49,7 +49,7 @@ var exist = true
    
      if(existentUser) {
 
-     req.session.user = { name: existentUser.name, id: existentUser._id};
+     req.session.user = existentUser;
   
       console.log("EXISTENT USER :", existentUser);
       res.redirect('/');
@@ -71,20 +71,15 @@ var exist = true
 
 
      router.get('/trips', async function (req, res, next) {
-
-   var user = await userModel.findById(req.session.user.id);
-   
-   console.log(user);
-
     var date = [];
+console.log(req.session.user)
 
     for (var i = 0; i < date.length; i++) {
-      if ().date < Date.now()) {
-        date.push(user.trips[i])
+      if (req.session.user.trips[i].date < Date.now()) {
+        date.push(req.session.user.trips[i])
       }
     }
 
-      console.log(date)
 
       res.render('lastrips', { title: 'My last trips', date: date });
     });

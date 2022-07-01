@@ -21,20 +21,23 @@
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Date</th>
+                   <th scope="col">Date</th>
                     <th scope="col">Journey</th>
                     <th scope="col">Departure Time</th>
                     <th scope="col">Price</th>
-                  </tr>
+                  </tr> 
                 </thead>
 
                 <tbody>
+                <%
+                    for(var i=0;i<date.length;i++){ %>
                     <tr>
-                     <td><%=date.date%></td>
-                      <td><%=date.departure%></td>
-                      <td><%=date.departureTime%></td>
-                      <td><%=date.price%></td>
+                     <td><%=date[i].date%></td>
+                      <td><%=date[i].departure%></td>
+                      <td><%=date[i].departureTime%></td>
+                      <td><%=date[i].price%></td>
                     </tr>
+                <%}%>
                   </tbody>
                 </table>
 
